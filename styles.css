@@ -13,6 +13,7 @@
   --radius-md: 20px;
   --radius-sm: 14px;
   --container: min(1200px, calc(100vw - 2rem));
+  --hero-phase: 0.5;
 }
 
 * {
@@ -25,7 +26,8 @@ html {
 
 body {
   margin: 0;
-  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  font-family: "Space Grotesk", "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  font-weight: 300;
   color: var(--text);
   background:
     radial-gradient(circle at top left, rgba(143, 211, 255, 0.2), transparent 28%),
@@ -45,6 +47,40 @@ body::before {
     radial-gradient(circle at 50% 75%, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px);
   background-size: 240px 240px, 280px 280px, 300px 300px;
   opacity: 0.75;
+}
+
+.loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 12, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 999;
+  transition: opacity 300ms ease, visibility 300ms ease;
+}
+
+.loading.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading__spinner {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--accent);
+  animation: spin 900ms linear infinite;
+}
+
+.loading p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
 }
 
 .skip-link {
@@ -80,6 +116,8 @@ main {
   min-height: 100vh;
   display: grid;
   align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(2rem, 6vw, 4rem);
   padding: 3rem 0 4rem;
 }
 
@@ -98,6 +136,104 @@ main {
   max-width: 720px;
   padding: 2rem 0;
   animation: riseIn 700ms ease-out both;
+  z-index: 1;
+}
+
+.hero__visual {
+  position: relative;
+  min-height: clamp(320px, 45vw, 520px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+}
+
+.hero__stars {
+  position: absolute;
+  inset: 0;
+  border-radius: 40px;
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  animation: twinkle 20s linear infinite;
+}
+
+.hero__stars--near {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0 1px, transparent 60%);
+  background-size: 180px 180px;
+}
+
+.hero__stars--far {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.35) 0 1px, transparent 70%);
+  background-size: 260px 260px;
+  animation-duration: 35s;
+}
+
+.hero__moon {
+  position: relative;
+  width: clamp(220px, 32vw, 360px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fffbe3, #f7e5c4 45%, #c8b9ff 80%);
+  box-shadow:
+    0 0 120px rgba(255, 222, 173, 0.3),
+    inset 10px 10px 40px rgba(255, 255, 255, 0.15),
+    inset -10px -10px 40px rgba(5, 7, 12, 0.35);
+}
+
+.hero__moon-glow {
+  position: absolute;
+  inset: -16%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 229, 186, 0.35), transparent 65%);
+  filter: blur(16px);
+  z-index: -1;
+}
+
+.hero__moon-core,
+.hero__moon-shading,
+.hero__moon-crater {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.hero__moon-core {
+  background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.9), transparent 70%);
+  mix-blend-mode: screen;
+}
+
+.hero__moon-shading {
+  background: linear-gradient(90deg, rgba(3, 6, 12, 0.85), transparent 60%);
+  transform: translateX(calc((0.5 - var(--hero-phase, 0.5)) * 140%));
+  transition: transform 800ms ease;
+  mix-blend-mode: multiply;
+}
+
+.hero__moon-crater {
+  width: 42px;
+  height: 42px;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.15), transparent 70%);
+  box-shadow: inset 6px 6px 10px rgba(255, 255, 255, 0.4);
+  opacity: 0.35;
+}
+
+.hero__moon-crater--one {
+  top: 24%;
+  left: 18%;
+  width: 50px;
+  height: 50px;
+}
+
+.hero__moon-crater--two {
+  bottom: 18%;
+  right: 22%;
+}
+
+.hero__moon-crater--three {
+  top: 52%;
+  left: 58%;
+  width: 30px;
+  height: 30px;
 }
 
 .eyebrow {
@@ -106,13 +242,14 @@ main {
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.8rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 h1,
 h2,
 h3 {
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+  font-weight: 400;
   line-height: 0.95;
   margin: 0;
 }
@@ -166,7 +303,7 @@ p {
 
 .hero__highlight-value {
   font-size: clamp(1.5rem, 4vw, 2.2rem);
-  font-weight: 800;
+  font-weight: 500;
 }
 
 .hero__highlight-caption {
@@ -189,7 +326,7 @@ p {
   padding: 0 1.2rem;
   border-radius: 999px;
   text-decoration: none;
-  font-weight: 800;
+  font-weight: 500;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
@@ -362,6 +499,30 @@ p {
   border-top: 1px solid rgba(255, 255, 255, 0.09);
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes twinkle {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate3d(20px, -10px, 0) scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(-10px, 15px, 0) scale(1);
+    opacity: 0.3;
+  }
+}
+
 @keyframes pulseMoon {
   0%,
   100% {
@@ -391,6 +552,12 @@ p {
   .hero {
     min-height: auto;
     padding-top: 6rem;
+    grid-template-columns: 1fr;
+  }
+
+  .hero__visual {
+    order: -1;
+    margin-bottom: 2rem;
   }
 
   .timeline-layout {

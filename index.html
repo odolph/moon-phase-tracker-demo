@@ -8,9 +8,20 @@
       content="Track the next 12 months of moon phases for San Jose, California with an interactive static timeline."
     />
     <title>Moon Phase Tracker | San Jose, CA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="loading" id="loading-screen" aria-live="polite">
+      <span class="loading__spinner" role="presentation"></span>
+      <p>Charting the next lunar phases…</p>
+    </div>
+
     <a class="skip-link" href="#timeline">Skip to timeline</a>
 
     <main>
@@ -36,6 +47,19 @@
           <div class="hero__actions">
             <a class="button button--primary" href="#timeline">Explore Timeline</a>
             <a class="button button--secondary" href="#details">Jump to Details</a>
+          </div>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="hero__stars hero__stars--near"></div>
+          <div class="hero__stars hero__stars--far"></div>
+          <div class="hero__moon">
+            <span class="hero__moon-glow"></span>
+            <span class="hero__moon-core"></span>
+            <span class="hero__moon-shading"></span>
+            <span class="hero__moon-crater hero__moon-crater--one"></span>
+            <span class="hero__moon-crater hero__moon-crater--two"></span>
+            <span class="hero__moon-crater hero__moon-crater--three"></span>
           </div>
         </div>
       </section>

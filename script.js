@@ -5,6 +5,8 @@ const SAN_JOSE = {
   timeZone: "America/Los_Angeles",
 };
 
+const loadingScreen = document.getElementById("loading-screen");
+
 const SYNODIC_MONTH_DAYS = 29.530588853;
 const SYNODIC_MONTH_MS = SYNODIC_MONTH_DAYS * 24 * 60 * 60 * 1000;
 const BASE_NEW_MOON_UTC = Date.UTC(2000, 0, 6, 18, 14, 0);
@@ -92,6 +94,20 @@ const MAJOR_PHASES = [
   },
 ];
 
+function setHeroPhaseFromIllumination(illuminationPercent) {
+  const value = Math.max(0, Math.min(1, illuminationPercent / 100));
+  document.documentElement.style.setProperty("--hero-phase", value.toFixed(2));
+}
+
+function hideLoader(message) {
+  if (!loadingScreen) return;
+  if (message) {
+    const textNode = loadingScreen.querySelector("p");
+    if (textNode) textNode.textContent = message;
+  }
+  loadingScreen.classList.add("is-hidden");
+}
+
 const formatDateTime = new Intl.DateTimeFormat("en-US", {
   timeZone: SAN_JOSE.timeZone,
   weekday: "short",
@@ -155,6 +171,11 @@ function updateHero(nextPhase) {
 
   summary.textContent = `${nextPhase.name} · ${nextPhase.localDateTime}`;
   caption.textContent = `${nextPhase.illumination} illumination expected. Best viewing: ${nextPhase.bestViewing}.`;
+
+  const illuminationValue = Number.parseInt(nextPhase.illumination, 10);
+  if (!Number.isNaN(illuminationValue)) {
+    setHeroPhaseFromIllumination(illuminationValue);
+  }
 }
 
 function updateDetails(phase, button) {
@@ -221,11 +242,13 @@ function init() {
     document.getElementById("next-phase-summary").textContent = "No phases available";
     document.getElementById("next-phase-caption").textContent =
       "The client-side generator could not produce events for the requested range.";
+    hideLoader("Unable to build the lunar roster.");
     return;
   }
 
   updateHero(phases[0]);
   renderTimeline(phases);
+  hideLoader();
 }
 
 init();
