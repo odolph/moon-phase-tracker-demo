@@ -1,0 +1,13 @@
+{
+  "location": {
+    "name": "San Jose, CA",
+    "latitude": 37.3382,
+    "longitude": -121.8863,
+    "timeZone": "America/Los_Angeles"
+  },
+  "approximation": {
+    "baseNewMoonUtc": "2000-01-06T18:14:00Z",
+    "synodicMonthDays": 29.530588853,
+    "majorPhasesPerLunation": 8
+  }
+}

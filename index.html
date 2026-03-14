@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Track the next 12 months of moon phases for San Jose, California with an interactive static timeline."
+    />
+    <title>Moon Phase Tracker | San Jose, CA</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#timeline">Skip to timeline</a>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__backdrop" aria-hidden="true"></div>
+        <div class="hero__content">
+          <p class="eyebrow">Moonwatching for San Jose, California</p>
+          <h1 id="hero-title">Follow the moon through the next 12 months.</h1>
+          <p class="hero__description">
+            A static client-side tracker that estimates major lunar phase moments,
+            illumination, and practical viewing windows using a lightweight
+            astronomical approximation.
+          </p>
+
+          <div class="hero__highlight" aria-live="polite">
+            <p class="hero__highlight-label">Next major phase</p>
+            <div id="next-phase-summary" class="hero__highlight-value">Calculating…</div>
+            <p id="next-phase-caption" class="hero__highlight-caption">
+              Preparing the upcoming lunar timeline.
+            </p>
+          </div>
+
+          <div class="hero__actions">
+            <a class="button button--primary" href="#timeline">Explore Timeline</a>
+            <a class="button button--secondary" href="#details">Jump to Details</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="timeline" class="timeline-section" aria-labelledby="timeline-title">
+        <div class="section-heading">
+          <p class="eyebrow">Upcoming phases</p>
+          <h2 id="timeline-title">Interactive lunar timeline</h2>
+          <p>
+            Scroll across the next year of major moon phases. Hover, tap, or use
+            the keyboard to inspect a phase in more detail.
+          </p>
+        </div>
+
+        <div class="timeline-layout">
+          <div
+            id="timeline-track"
+            class="timeline-track"
+            role="list"
+            aria-label="Upcoming moon phases for the next twelve months"
+          ></div>
+
+          <aside id="details" class="details-panel" aria-live="polite">
+            <p class="details-panel__label">Selected phase</p>
+            <h3 id="detail-title">Select a phase</h3>
+            <p id="detail-datetime" class="details-panel__datetime"></p>
+            <div class="details-panel__stats">
+              <div>
+                <span class="stat-label">Illumination</span>
+                <strong id="detail-illumination">—</strong>
+              </div>
+              <div>
+                <span class="stat-label">Best viewing</span>
+                <strong id="detail-viewing">—</strong>
+              </div>
+            </div>
+            <p id="detail-description" class="details-panel__description">
+              Phase notes and observation guidance will appear here.
+            </p>
+            <p id="detail-meaning" class="details-panel__meaning"></p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Calculations use a client-side synodic month approximation anchored to a
+        historical new moon epoch. Times are presented for San Jose, CA
+        (37.3382, -121.8863 / America/Los_Angeles).
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
