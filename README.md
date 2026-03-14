@@ -38,6 +38,10 @@ The JavaScript uses:
   - Last Quarter
   - Waning Crescent
 
+## Assets
+
+- Hero moon texture sourced from NASA GSFC / Arizona State University (Wikimedia, "FullMoon2010"), stored at `assets/moon-texture.jpg` and tinted client-side.
+
 For each checkpoint, the script:
 
 1. Steps through lunations spanning the next year.
