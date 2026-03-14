@@ -99,12 +99,8 @@ function setHeroPhaseFromIllumination(illuminationPercent) {
   document.documentElement.style.setProperty("--hero-phase", value.toFixed(2));
 }
 
-function hideLoader(message) {
+function hideLoader() {
   if (!loadingScreen) return;
-  if (message) {
-    const textNode = loadingScreen.querySelector("p");
-    if (textNode) textNode.textContent = message;
-  }
   loadingScreen.classList.add("is-hidden");
 }
 
@@ -242,7 +238,7 @@ function init() {
     document.getElementById("next-phase-summary").textContent = "No phases available";
     document.getElementById("next-phase-caption").textContent =
       "The client-side generator could not produce events for the requested range.";
-    hideLoader("Unable to build the lunar roster.");
+    hideLoader();
     return;
   }
 

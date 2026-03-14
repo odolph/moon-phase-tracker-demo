@@ -77,12 +77,6 @@ body::before {
   animation: spin 900ms linear infinite;
 }
 
-.loading p {
-  margin: 0;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
 .skip-link {
   position: absolute;
   left: -999px;
@@ -236,11 +230,11 @@ main {
 .hero__moon-texture {
   position: absolute;
   inset: 0;
-  background-image: url("assets/moon-texture.jpg");
-  background-size: cover;
-  background-position: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   filter: saturate(0.85) contrast(1.1);
-  opacity: 0.95;
+  opacity: 0.97;
 }
 
 .hero__moon-core,

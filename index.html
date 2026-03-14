@@ -17,9 +17,8 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="loading" id="loading-screen" aria-live="polite">
+    <div class="loading" id="loading-screen" aria-hidden="true">
       <span class="loading__spinner" role="presentation"></span>
-      <p>Charting the next lunar phases…</p>
     </div>
 
     <a class="skip-link" href="#timeline">Skip to timeline</a>
@@ -58,7 +57,12 @@
           <span class="hero__comet hero__comet--two"></span>
           <div class="hero__moon">
             <span class="hero__moon-glow"></span>
-            <span class="hero__moon-texture"></span>
+            <img
+              src="assets/moon-texture.jpg"
+              alt=""
+              class="hero__moon-texture"
+              loading="lazy"
+            />
             <span class="hero__moon-core"></span>
             <span class="hero__moon-shading"></span>
             <span class="hero__moon-crater hero__moon-crater--one"></span>
